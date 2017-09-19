@@ -1,9 +1,11 @@
 package com.kyweb.service;
 
-import com.kyweb.mapper.UserMapper;
-import com.kyweb.model.User;
+import com.kyweb.model.TbUser;
+import com.kyweb.vo.UserVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.kyweb.mapper.TbUserMapper;
 
 /**
  * Created by zl on 2015/8/27.
@@ -13,12 +15,15 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    TbUserMapper tbuserMapper;
 
-    public User getUserInfo(){
-        User user=userMapper.findUserInfo();
-        //User user=null;
-        return user;
+    public UserVo getUserInfo(){
+        TbUser tbUser=tbuserMapper.findTbUser("name");
+        UserVo userVo=null;
+        if(null!=tbUser){
+            BeanUtils.copyProperties(tbUser,userVo);
+        }
+        return userVo;
     }
 
 }
