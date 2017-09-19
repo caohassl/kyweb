@@ -1,7 +1,7 @@
 #项目和端口
 server:
   context-path: /kyweb
-  port: 8080
+  port: 8888
 
 #数据库设置
 spring:

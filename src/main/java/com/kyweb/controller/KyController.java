@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 @Controller
-@RequestMapping(value="/standard")
 public class KyController {
 
     @Resource(name="kyDateServiceImpl")
@@ -18,12 +17,10 @@ public class KyController {
 
     /**
      * 当输入地址时返回默认地址
-     * @param model
      * @return
      */
-    @ApiOperation(value="look for the days",notes="requires noting")
-    @RequestMapping("/getLastDays")
-    public String index(Model model){
+    @RequestMapping("/")
+    public String defaultMethod(Model model){
         int allowTime=kyDateServiceImpl.miniTime(new Date());
         model.addAttribute("time",allowTime);
         return "index";
