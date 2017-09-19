@@ -26,4 +26,5 @@ public class TbUser {
     /**
      * 修改时间
      */
+    private String updateTime;
 }

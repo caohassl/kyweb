@@ -18,6 +18,6 @@ public class ExceptionHandle {
     {
         log.info("request for {} but failed by {}",req.getRequestURI(),e);
 
-        return "redirect:/standard/getLastDays";
+        return "redirect:/";
     }
 }
