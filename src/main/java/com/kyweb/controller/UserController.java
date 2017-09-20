@@ -23,7 +23,8 @@ public class UserController {
 
     @RequestMapping("/getUserInfo")
     @ResponseBody
-    public UserVo getUserInfo() {
+    public UserVo getUserInfo(String name) {
+        System.out.println(name);
         UserVo userVo = userServiceImpl.getUserInfo("admin");
         if (userVo != null) {
             System.out.println("user.getName():" + userVo.getName());
