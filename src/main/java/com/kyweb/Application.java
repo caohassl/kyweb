@@ -1,6 +1,5 @@
 package com.kyweb;
 
-import groovy.util.logging.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
