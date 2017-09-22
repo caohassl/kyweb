@@ -3,6 +3,8 @@ server:
   context-path: /kyweb
   port: 8888
 
+
+
 #数据库设置
 spring:
   datasource:

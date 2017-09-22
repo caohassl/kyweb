@@ -23,7 +23,6 @@ public class KyController {
     public String defaultMethod(Model model) {
         int allowTime = kyDateServiceImpl.miniTime(new Date());
         model.addAttribute("time", allowTime);
-        System.out.println("asdadadadad...........");
         return "index";
     }
 
