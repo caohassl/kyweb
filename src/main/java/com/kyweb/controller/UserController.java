@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,6 @@ public class UserController {
 
     /**
      * 登录方法
-     *
      * @param userVo
      * @return
      * @author:caomr
@@ -48,10 +48,16 @@ public class UserController {
         return map;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
-    public String loginSuccess(String name) {
+    public String loginSuccess(String name, HttpSession session) {
 
         log.info("用户{}登录成功", name);
+        session.setAttribute("name",name);
         return "ftl/login/loginsuccess";
     }
 
