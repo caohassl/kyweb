@@ -25,9 +25,7 @@ import javax.sql.DataSource;
 public class Application {
 
 
-    static {
 
-    }
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
