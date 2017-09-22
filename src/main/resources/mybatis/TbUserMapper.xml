@@ -39,7 +39,7 @@
     <select id="findTbUser" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT
         <include refid="BaseColumnList"/>
-        FROM tb_user WHERE NAME =#{name,jdbcType=VARCHAR}
+        FROM tb_user WHERE name =#{name,jdbcType=VARCHAR}
     </select>
 
 </mapper>

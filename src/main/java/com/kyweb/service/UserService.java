@@ -16,5 +16,10 @@ public interface UserService {
      */
     UserVo getUserInfo(String name);
 
-
+    /**
+     * 检查是否在数据库存在
+     * @param userVo
+     * @return
+     */
+    boolean checkUser(UserVo userVo);
 }

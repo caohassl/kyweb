@@ -1,5 +1,6 @@
 package com.kyweb.handlerInterceptor;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,7 +43,15 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = httpServletRequest.getRemoteAddr();
         }
-        log.info("remote user ip :{} login in and request : {}", ip, httpServletRequest.getRequestURI());
+        if("0:0:0:0:0:0:0:1".equals(ip)){
+            ip="127.0.0.1";
+        }
+        String requestUrl=httpServletRequest.getRequestURI();
+        if(!StringUtils.isEmpty(httpServletRequest.getQueryString())){
+            requestUrl=requestUrl+"?"+httpServletRequest.getQueryString();
+        }
+
+        log.info("remote user ip :{} login in and request : {}", ip,requestUrl);
         return true;
     }
 

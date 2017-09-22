@@ -16,8 +16,7 @@ public class ExceptionHandle {
     @ExceptionHandler(value = Exception.class)
     public String defaultErrorHandler(HttpServletRequest req, Exception e)
     {
-        log.info("request for {} but failed by {}",req.getRequestURI(),e);
-
-        return "redirect:/";
+        log.error("request for {} but failed by {}",req.getRequestURI(),e.getMessage(),e);
+        return "redirect:/err?errMsg="+e.getMessage();
     }
 }

@@ -1,7 +1,7 @@
 #项目和端口
 server:
-  context-path: /kyweb
-  port: 8888
+     context-path: /kyweb
+     port: 8888
 
 
 
@@ -12,12 +12,11 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false
 
 #设定ftl文件路径
-spring.freemarker.template-loader-path: classpath:/templates/
+spring.freemarker.template-loader-path: classpath:/templates
 
-
-
-error.path: /error
 #设定静态文件路径，js,css等
 #spring.mvc.static-path-pattern: /static/**？

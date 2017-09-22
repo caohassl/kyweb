@@ -1,13 +1,18 @@
 package com.kyweb.controller;
 
 import com.kyweb.service.UserService;
+import com.kyweb.utils.CommonUtil;
 import com.kyweb.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zl on 2015/8/27.
@@ -21,13 +26,34 @@ public class UserController {
     @Resource
     private UserService userServiceImpl;
 
-    @RequestMapping("/getUserInfo")
+    /**
+     * 登录方法
+     *
+     * @param userVo
+     * @return
+     * @author:caomr
+     */
+    @RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
     @ResponseBody
-    public UserVo getUserInfo(String name) {
-        UserVo userVo = userServiceImpl.getUserInfo("admin");
-        if (userVo != null) {
-            System.out.println("user.getName():" + userVo.getName());
+    public Map checkLogin(UserVo userVo) {
+        String args = "name,password";
+        String flag = CommonUtil.checkBeanPropertiesHaveBlank(userVo, args.split(","));
+        if (!StringUtils.isEmpty(flag)) {
+            log.error("必传字段为空:{}", flag);
         }
-        return userVo;
+        log.info("来自用户名为{}请求登录", userVo.getName());
+        boolean result = userServiceImpl.checkUser(userVo);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("result", result);
+        return map;
     }
+
+    @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
+    public String loginSuccess(String name) {
+
+        log.info("用户{}登录成功", name);
+        return "ftl/login/loginsuccess";
+    }
+
+
 }

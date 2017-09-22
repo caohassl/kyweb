@@ -8,7 +8,7 @@ import java.util.TimeZone;
 /**
  * Created by Caomr on 2017/9/10.
  */
-public class DateUtils {
+public class DateUtil {
 
     /**定义常量**/
     public static final String DATE_JFP_STR="yyyyMM";

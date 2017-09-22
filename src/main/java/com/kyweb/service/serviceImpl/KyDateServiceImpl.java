@@ -1,7 +1,7 @@
 package com.kyweb.service.serviceImpl;
 
 import com.kyweb.service.KyDateService;
-import com.kyweb.utils.DateUtils;
+import com.kyweb.utils.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -25,7 +25,7 @@ public class KyDateServiceImpl implements KyDateService{
      */
     public int miniTime(Date date) {
         long curTime=date.getTime();
-        long fianlTime= DateUtils.parse(FINALTIME,"yyyy-MM-dd HH:mm:ss").getTime();
+        long fianlTime= DateUtil.parse(FINALTIME,"yyyy-MM-dd HH:mm:ss").getTime();
         long miniDay=(fianlTime-curTime)/(1000*60*60*24);
         double temp=Math.ceil(miniDay);
         return new BigDecimal(temp).intValue();
