@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 
 /**
@@ -27,6 +28,46 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        generateIp(httpServletRequest);
+        String requestUrl = httpServletRequest.getRequestURI();
+        String queryString = getRequestString(httpServletRequest);
+        String requestSessionId = httpServletRequest.getRequestedSessionId();
+        if (!StringUtils.isEmpty(requestSessionId)) {
+            log.info("request session id is {}", requestSessionId);
+        }
+        log.info("remote user ip :{} login in and request : {}", ip, requestUrl + " " + queryString);
+        return true;
+    }
+
+    /**
+     * 产生请求的参数
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    private String getRequestString(HttpServletRequest httpServletRequest) {
+        Map<String, String[]> params = httpServletRequest.getParameterMap();
+        String queryString = "";
+        if (null != params && params.size() > 0) {
+            for (String key : params.keySet()) {
+                String[] values = params.get(key);
+                for (int i = 0; i < values.length; i++) {
+                    String value = values[i];
+                    queryString += key + "=" + value + "&";
+                }
+            }
+            // 去掉最后一个空格
+            queryString = queryString.substring(0, queryString.length() - 1);
+        }
+        return queryString;
+    }
+
+    /**
+     * 得到请求的ip
+     *
+     * @param httpServletRequest
+     */
+    private void generateIp(HttpServletRequest httpServletRequest) {
         ip = httpServletRequest.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = httpServletRequest.getHeader("Proxy-Client-IP");
@@ -43,16 +84,9 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = httpServletRequest.getRemoteAddr();
         }
-        if("0:0:0:0:0:0:0:1".equals(ip)){
-            ip="127.0.0.1";
+        if ("0:0:0:0:0:0:0:1".equals(ip)) {
+            ip = "127.0.0.1";
         }
-        String requestUrl=httpServletRequest.getRequestURI();
-        if(!StringUtils.isEmpty(httpServletRequest.getQueryString())){
-            requestUrl=requestUrl+"?"+httpServletRequest.getQueryString();
-        }
-
-        log.info("remote user ip :{} login in and request : {}", ip,requestUrl);
-        return true;
     }
 
     @Override

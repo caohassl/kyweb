@@ -43,7 +43,7 @@ function isLoginSuccess() {
         success: function (data) {
             if (data.result) {
                 var url = window.location.href;
-                url = url + "userController/loginSuccess?name=" + name;
+                url = url + "userController/loginSuccess";
                 window.location.href = url;
             } else {
                 $(".err").html("帐号密码不正确，请校验");

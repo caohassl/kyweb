@@ -30,7 +30,6 @@ public class KyController {
         String url = "ftl/error";
         log.error("错误信息{},正在跳转{}", errMsg, url);
         model.addAttribute("errMsg", errMsg);
-        model.addAttribute("time", "123");
         return url;
     }
 
