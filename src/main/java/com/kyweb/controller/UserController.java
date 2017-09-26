@@ -61,7 +61,7 @@ public class UserController {
     public String loginSuccess(HttpSession session) {
 
         log.info("用户{}登录成功", session.getAttribute("name"));
-        return "ftl/login/loginsuccess";
+        return "ftl/time/addTime";
     }
 
 
