@@ -10,4 +10,6 @@ CREATE TABLE `tb_quartz` (
   `insert_time` varchar(20) DEFAULT NULL COMMENT '短信或者定时任务插入时间',
   `update_time` varchar(20) DEFAULT NULL COMMENT '跟新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='定时和消息表'
+)
+CREATE INDEX tb_quartz_user_name_index ON tb_quartz (user_name);
+CREATE INDEX tb_quartz_message_status_index ON tb_quartz (message_status);

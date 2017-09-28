@@ -7,3 +7,4 @@ CREATE TABLE kyweb_dev.tb_user
   insert_time VARCHAR(20) DEFAULT null COMMENT '插入时间'
 );
 ALTER TABLE kyweb_dev.tb_user COMMENT = '用户表';
+CREATE INDEX tb_user_name_index ON tb_user (name);

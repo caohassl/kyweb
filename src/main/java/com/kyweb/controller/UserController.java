@@ -35,7 +35,7 @@ public class UserController {
      */
     @RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
     @ResponseBody
-    public Map checkLogin(UserVo userVo) {
+    public Map checkLogin(UserVo userVo,HttpSession session) {
         String args = "name,password";
         String flag = CommonUtil.checkBeanPropertiesHaveBlank(userVo, args.split(","));
         if (!StringUtils.isEmpty(flag)) {
@@ -43,6 +43,10 @@ public class UserController {
         }
         log.info("来自用户名为{}请求登录", userVo.getName());
         boolean result = userServiceImpl.checkUser(userVo);
+        if(result){
+            session.setAttribute("name",userVo.getName());
+            log.info("用户登录成功，将用户{}写入缓存",userVo.getName());
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("result", result);
         return map;
@@ -50,15 +54,14 @@ public class UserController {
 
     /**
      *
-     * @param name
+     * @param session
      * @return
      */
     @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
-    public String loginSuccess(String name, HttpSession session) {
+    public String loginSuccess(HttpSession session) {
 
-        log.info("用户{}登录成功", name);
-        session.setAttribute("name",name);
-        return "ftl/login/loginsuccess";
+        log.info("用户{}登录成功", session.getAttribute("name"));
+        return "ftl/time/addTime";
     }
 
 
